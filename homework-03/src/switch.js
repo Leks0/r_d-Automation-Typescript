@@ -1,18 +1,20 @@
 function switchCondition() {
 
-    let grade = 85;
+    const grade = 85;
+    const roundedGrade = Math.floor(grade/10);
+    console.log(roundedGrade);
 
     // Перевіряємо по значенню:
-    switch (true) {
-        case grade >= 90: {
+    switch (roundedGrade) {
+        case 9: {
             console.log(`Ваша оцінка "5" (${grade})`);
             break;
         }
-        case grade >= 80: {
+        case 8: {
             console.log(`Ваша оцінка "4" (${grade})`);
             break;
         }
-        case grade >= 60: {
+        case 6: {
             console.log(`Ваша оцінка "3" (${grade})`);
             break;
         }

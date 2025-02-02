@@ -1,5 +1,5 @@
 function ifElse() {
-    let grade = 85;
+    const grade = 85;
 
     // Перевіряємо по умові:
     if (grade >= 90) {

@@ -2,9 +2,10 @@
 function vars() {
     const myAge = 30;
     let myName = 'John';
-    var yearOfBirth = 1990;
+    //var yearOfBirth = 1989;
+    myName = "Yaroslav";
 
-    console.log(myAge, myName, yearOfBirth);
+    console.log(myAge, myName, "yearOfBirth");
 }
 
 // Перевірка можливостей зміни значень змінних і констранти
@@ -12,41 +13,41 @@ function dataChange() {
     // зона видимості змінних: ми не маємо доступу до змінних і константи у функції var(), тому треба знову їх обʼявити.
     const myAge = 30;
     let myName = 'John';
-    var yearOfBirth = 1989;
+    //var yearOfBirth = 1989;
 
-    console.log(myAge, myName, yearOfBirth);
+    console.log(myAge, myName, "yearOfBirth");
 
     //myAge = 34; - константу змінити неможна. При спробі зміни константи - помилка в консолі.
     myName = 'Yaroslav';
-    yearOfBirth = 1990;
-    console.log(myAge, myName, yearOfBirth);
+    //yearOfBirth = 1990;
+    console.log(myAge, myName, "yearOfBirth");
 }
 
 function dataTypes() {
     //number
-    let age = 5;
-    let height = 1.86;
-    let temperature = -2;
+    const age = 5;
+    const height = 1.86;
+    const temperature = -2;
     console.log("numbers:", age, " , ", height, " , ", temperature);
 
     //BigInt
-    let bigNumber = 9007199254740991n;
-    let anotherBig = BigInt(123);
+    const bigNumber = 9007199254740991n;
+    const anotherBig = BigInt(123);
     console.log("BigInt:", bigNumber, " , ", anotherBig);
 
     //String
-    let name = "Yaroslav";
-    let message = "Hello, world!";
-    let phrase = "Hello, my name is ${name}";
+    const name = "Yaroslav";
+    const message = "Hello, world!";
+    const phrase = "Hello, my name is ${name}";
     console.log("String", name, " , ", message, " , ", phrase);
 
     //Boolean
-    let isHappy = true;
-    let isSad = false;
+    const isHappy = true;
+    const isSad = false;
     console.log("Boolean: ", isHappy, " , ", isSad);
 
     //Null
-    let empty = null;
+    const empty = null;
     console.log("NULL: ", empty);
 
     //Undefined
@@ -54,7 +55,7 @@ function dataTypes() {
     console.log("Undefined: ", undefined);
 
     //Object
-    let student = {
+    const student = {
         name: "John",
         surname: "Dow",
         age: "25",
@@ -66,17 +67,15 @@ function dataTypes() {
     console.table(student);
 
     //Symbol
-    let id = Symbol("id");
-    let id2 = Symbol("id")
+    const id = Symbol("id");
+    const id2 = Symbol("id");
     console.log("Symbol: ", id===id2);
 
     //Any
     let any = 4;
-    let byDefault;
-    byDefault = any;
-    let anyOne, anyTwo;
+    const byDefault = any;
     any = "text";
-    anyOne = any;
+    const anyOne = any;
     any = false;
     console.log(`default: ${byDefault}, first change: ${anyOne}, second change: ${any}`);
     console.log("default: %d, first change: %s, second change: %s", byDefault, anyOne, any); // тут вивів бінарку як string
@@ -109,13 +108,11 @@ function dataConvert() {
     const bool2Num = Number(bool2);
     console.log("Number():");
     console.log(`str2: ${str2Num} (${str2Num}), bool2: ${bool2Num} (${bool2Num})`);
-    
     // Конвертую string (який виглядає як float) з округленням до цілих (int) і у float:
     const stringInt = parseInt("497.11");
     const stringFloat = parseFloat("497.11");
     console.log("parseInt(), parseFloat():");
     console.log(`string (float) -> int: ${stringInt}, string (float) -> float: ${stringFloat}`);
-    
     // Цікаві кейси
     console.log("Цікаві кейси:");
     const stringToNumber = Number("Text"); // конвертація коли string НЕ числовий рядок
@@ -129,40 +126,41 @@ function dataConvert() {
 
 function operations() {
     // Додавання
-    let sumOne = 1 + 1;
-    let sumTwo = "1" + "1";
-    let sumThree = +(-1);
-    let sumFour = +"1";
-    let sumFive = "1" + 1;
+    const sumOne = 1 + 1;
+    const sumTwo = "1" + "1";
+    const sumThree = +(-1);
+    const sumFour = +"1";
+    const sumFive = "1" + 1;
     console.log(`sumOne = ${sumOne}, sumTwo = ${sumTwo}, sumThree = ${sumThree}, sumFour = ${sumFour}, sumFive = ${sumFive}`);
 
     // Віднімання
-    let subOne = 3 - 2;
-    let subTwo = "3" - "2";
-    let subThree = "3" - 2;
+    const subOne = 3 - 2;
+    const subTwo = "3" - "2";
+    const subThree = "3" - 2;
     console.log(`subOne = ${subOne}, subTwo = ${subTwo}, subThree = ${subThree}`);
 
     // Множення
-    let multiOne = 5 * 5;
-    let multiTwo = "5" * "3";
-    let multiThree = 5 * "3";
+    const multiOne = 5 * 5;
+    const multiTwo = "5" * "3";
+    const multiThree = 5 * "3";
     console.log(`multiOne = ${multiOne}, multiTwo = ${multiTwo}, multiThree = ${multiThree}`);
 
     // Ділення
-    let divOne = 6 / 4;
-    let divTwo = "6" / "2";
+    const divOne = 6 / 4;
+    const divTwo = "6" / "2";
     console.log(`divOne = ${divOne}, divTwo = ${divTwo}`);
 
     // Остача від ділення
-    let mod1 = 5 % 2;
-    let mod2 = 8 % 3;
-    let mod3 = -5 % 2;
+    const mod1 = 5 % 2;
+    const mod2 = 8 % 3;
+    const mod3 = -5 % 2;
     console.log(`mod1 = ${mod1}, mod2 = ${mod2}, mod3 = ${mod3}`);
 
     // Піднесення до степеня
-    let pow1 = 2 ** 2;
-    let pow2 = 4 ** 2;
-    let pow3 = 2 ** 6;
+    const pow1 = 2 ** 2;
+    const pow2 = 4 ** 2;
+    const pow3 = 2 ** 6;
+    console.log(`2 ** 2 = ${pow1}, 4 ** 2 = ${pow2}, 2 ** 6 = ${pow3}`);
 
     // Присвоєння та модифікація
     let x = 5;
@@ -185,12 +183,8 @@ function operations() {
     console.log(`${i++} + 1 = ${i}, ${i} - 1 = ${--i}, ${i} + 1 = ${++i}, ${i} - 1 = ${--i}`);
 
     // Порівняння булєвих значень
-    let a = true;
-    let b = false;
-    let c = "true";
-    let boolC = Boolean(c);
-    let d;
-    let boolD = Boolean(d);
+    const a = true;
+    const b = false;
     console.log(`true && true = ${a && a}, true && false = ${a && b}, false && false = ${b && b}`);
     console.log(`true || true = ${a || a}, true || false = ${a || b}, false || false = ${b || b}`);
     console.log(`not ${a} = ${!a}, not ${b} = ${!b}, !!"" (${!!""}) ==  Boolean("") (${Boolean("")}), !!"text" (${!!"text"}) == Boolean("text") (${Boolean("text")})`);
@@ -203,7 +197,7 @@ function operations() {
 }
 
 function conditions() {
-    let grade = 85;
+    const grade = 85;
 
     // Перевіряємо по умові:
     if (grade >= 90) {
@@ -237,14 +231,14 @@ function conditions() {
     }
 
     // result = умова ? якщо true : якщо false
-    let result = grade >= 60 ? "Ви склали іспит" : "Ви не склали іспит";
+    const result = grade >= 60 ? "Ви склали іспит" : "Ви не склали іспит";
     console.log(result);
 }
 
 
-//vars();
-//dataChange();
-//dataTypes();
-//dataConvert();
-//operations();
+vars();
+dataChange();
+dataTypes();
+dataConvert();
+operations();
 conditions();
