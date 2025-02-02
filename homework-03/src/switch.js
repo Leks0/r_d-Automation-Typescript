@@ -6,6 +6,7 @@ function switchCondition() {
 
     // Перевіряємо по значенню:
     switch (roundedGrade) {
+        case 10:
         case 9: {
             console.log(`Ваша оцінка "5" (${grade})`);
             break;
@@ -14,6 +15,7 @@ function switchCondition() {
             console.log(`Ваша оцінка "4" (${grade})`);
             break;
         }
+        case 7:
         case 6: {
             console.log(`Ваша оцінка "3" (${grade})`);
             break;
