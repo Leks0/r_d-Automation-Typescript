@@ -1,25 +1,28 @@
-# js-eslint-config
-recommended config from me for programming on a JavaScript
+# Основи JavaScript - Домашнє Завдання
 
-In order to use this config you have to install the following NPM packages
-```
-npm init
-npm i -D @eslint/js eslint globals eslint-plugin-unicorn
-```
+Цей проєкт містить виконання домашнього завдання №4
 
-Then put eslint.config.mjs and .prettierrc into your base directory
+## Опис проєкту
 
-you can add a script to your package.json
-```
-"scripts": {
-  "lint": "eslint .",
-  "build": "npm run lint && <build script>",
-}
-```
+Проєкт складається з трьох основних JavaScript файлів, кожен з яких зосереджується на:
 
-**Alternatively**, just copy the content of this folder into your project folder and run
-```
-npm i
-```
+### loop.js
+Файл демонструє різні типи циклів у JavaScript:
+- Цикл "for" для послідовного перебору чисел
+- Цикл "while" для ітерації з певним кроком
+- Використання міток (labels) для керування вкладеними циклами
+- Практичне застосування "break" та "continue"
 
-and start coding
+### arrays.js
+Файл містить приклади роботи з масивами:
+- Створення та маніпуляція масивами різних типів даних
+- Використання сучасних методів роботи з масивами (forEach, map)
+- Демонстрація фільтрації та пошуку в масивах
+- Застосування "spread" оператора для об'єднання масивів
+
+### objects.js
+Файл показує роботу з об'єктами:
+- Створення складних об'єктів з множинними рівнями вкладеності
+- Використання "Map" та "Set" для зберігання даних
+- Робота з методами об'єктів та "this"
+- Демонстрація сучасних можливостей об'єктів (опціональний ланцюжок)
