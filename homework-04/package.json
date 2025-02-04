@@ -1,4 +1,14 @@
 {
+  "name": "homework-04",
+  "version": "1.0.0",
+  "description": "recommended config from me for programming on a JavaScript",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
     "eslint": "^9.19.0",
