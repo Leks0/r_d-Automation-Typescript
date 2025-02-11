@@ -19,6 +19,7 @@ async function fetchWithFallback() {
         return data;
     } catch (error) {
         console.log("Помилка при запиті, спробуємо альтернативний ресурс: ");
+        console.log(error);
 
         try {
             const alternativeResponse = await fetch('https://jsonplaceholder.typicode.com/users');

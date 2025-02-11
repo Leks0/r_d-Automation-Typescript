@@ -1,25 +1,15 @@
-# js-eslint-config
-recommended config from me for programming on a JavaScript
+# JavaScript Async Operations
 
-In order to use this config you have to install the following NPM packages
-```
-npm init
-npm i -D @eslint/js eslint globals eslint-plugin-unicorn
-```
+This project demonstrates different approaches to handling asynchronous operations in JavaScript.
 
-Then put eslint.config.mjs and .prettierrc into your base directory
+## Features
 
-you can add a script to your package.json
-```
-"scripts": {
-  "lint": "eslint .",
-  "build": "npm run lint && <build script>",
-}
-```
+- Promise-based API calls
+- Async/await implementation
+- Error handling with fallback mechanism
 
-**Alternatively**, just copy the content of this folder into your project folder and run
-```
-npm i
-```
+## Files Structure
 
-and start coding
+- promises.js: Demonstrates Promise chain implementation
+- async-await.js: Shows modern async/await approach
+- try-catch.js: Implements error handling with fallback logic
