@@ -1,24 +1,13 @@
-# ts-eslint-config
-recommended config from me for programming on a TypeScript
+# TypeScript Functions Implementation
+This project demonstrates the conversion of JavaScript functions to TypeScript, showcasing different function implementations and type safety features.
 
-In order to use this config you have to install the following NPM packages
-```
-npm i -D typescript ts-node eslint typescript-eslint @eslint/js @typescript-eslint/eslint-plugin @typescript-eslint/parser @stylistic/eslint-plugin @stylistic/eslint-plugin-ts eslint-plugin-prettier eslint-plugin-unicorn prettier globals
-```
+## Project Structure
 
-Then put eslint.config.mjs into your base directory
+### function.ts
+- Contains regular function implementations
+- Demonstrates linter warnings with deliberate errors
+- Shows proper TypeScript implementation
 
-you can add a script to your package.json
-```
-"scripts": {
-  "lint": "eslint .",
-  "build": "npm run lint && tsc --build",
-}
-```
-
-**Alternatively**, just copy the content of this folder into your project folder and run
-```
-npm i
-```
-
-and start coding
+### arrow-function.ts
+- Single-line arrow function implementation
+- Conditional arrow function with type safety
