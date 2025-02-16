@@ -23,7 +23,7 @@ function lazySumArrayElements(data: (string | number)[]): string | number {
     if (isStringArray) {
         return data.join('');
     } else {
-        return data.reduce((sum, current) => (sum as number) + (current as number));
+        return (data as number[]).reduce((sum, current) => sum + current);
     }
 }
 
@@ -37,7 +37,7 @@ function sumArrayElements(data: string[] | number[]): string | number {
     if (typeof data[0] === 'string') {
         return data.join('');
     } else {
-        return data.reduce((sum, current) => (sum as number) + (current as number));
+        return (data as number[]).reduce((sum, current) => sum + current);
     }
 }
 

@@ -6,14 +6,14 @@
  */
 // Стрілкова функція для додавання елементів масиву однією строкою
 const sumArrayElementsOneLine = (arr: (string[] | number[])): string | number =>
-    typeof arr[0] === 'string' ? arr.join('') : arr.reduce((sum, current) => (sum as number) + (current as number));
+    typeof arr[0] === 'string' ? arr.join('') : (arr as number[]).reduce((sum, current) => sum + current);
 
 // Стрілкова функція для додавання елементів масиву через умову
 const sumArrayElementsIfElse = (data: (string[] | number[])): string | number => {
     if (typeof data[0] === 'string') {
         return data.join('');
     } else {
-        return data.reduce((sum, current) => (sum as number) + (current as number), 0);
+        return (data as number[]).reduce((sum, current) => sum + current);
     }
 };
 
