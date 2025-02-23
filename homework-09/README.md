@@ -6,3 +6,9 @@
 5. Викликати функцію з різними екземплярами класів.
 
 # Реалізація
+## Added TypeScript OOP Project
+This file demonstrates OOP priciples using a Vehicle system example:
+- Created base Vehicle abstract class with core methods (start, stop, refuel)
+- Added interfaces IVehicle and ICargoCarrier
+- Implemented Car and Truck classes extending Vehicle
+- Added test functions showing how different vehicles can be handled through interfaces
