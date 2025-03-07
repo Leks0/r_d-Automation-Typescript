@@ -1,0 +1,503 @@
+{
+	"info": {
+		"_postman_id": "3677a1b5-f036-491c-b2eb-baada825b1e8",
+		"name": "Official Jokes API Tests",
+		"description": "Tests for the Official Jokes API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13807249"
+	},
+	"item": [
+		{
+			"name": "Grab a random joke",
+			"item": [
+				{
+					"name": "GET /random_joke",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/random_joke",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"random_joke"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /jokes/random",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/jokes/random",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"jokes",
+								"random"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"pm.test(\"Response has required fields\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('type');",
+							"    pm.expect(jsonData).to.have.property('setup');",
+							"    pm.expect(jsonData).to.have.property('punchline');",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    if (jsonData && jsonData.id) {",
+							"        pm.collectionVariables.set(\"jokeId\", jsonData.id);",
+							"        console.log(\"Saved joke ID to collection variable: \" + jsonData.id);",
+							"    }",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Grab ten random jokes",
+			"item": [
+				{
+					"name": "GET /random_ten",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/random_ten",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"random_ten"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /jokes/ten",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/jokes/ten",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"jokes",
+								"ten"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /jokes/random/10",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/jokes/random/10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"jokes",
+								"random",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"pm.test(\"Each joke has required fields\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach(function(joke) {",
+							"        pm.expect(joke).to.have.property('id');",
+							"        pm.expect(joke).to.have.property('type');",
+							"        pm.expect(joke).to.have.property('setup');",
+							"        pm.expect(joke).to.have.property('punchline');",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Response has 10 jokes\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData.length).to.equal(10);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Grab jokes by type",
+			"item": [
+				{
+					"name": "Get joke types",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is an array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an('array');",
+									"    pm.expect(jsonData.length).to.be.greaterThan(0);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/types",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /jokes/programming/ten",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is an array of 10 jokes\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an('array');",
+									"    pm.expect(jsonData.length).to.be.at.most(10);",
+									"});",
+									"",
+									"pm.test(\"Each joke has required fields and is of type 'programming'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.forEach(function(joke) {",
+									"        pm.expect(joke).to.have.property('id');",
+									"        pm.expect(joke).to.have.property('type');",
+									"        pm.expect(joke.type).to.equal('programming');",
+									"        pm.expect(joke).to.have.property('setup');",
+									"        pm.expect(joke).to.have.property('punchline');",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/jokes/programming/ten",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"jokes",
+								"programming",
+								"ten"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /jokes/dad/random",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Joke has required fields and is of type 'dad'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.forEach(function(joke) {",
+									"        pm.expect(joke).to.have.property('id');",
+									"        pm.expect(joke).to.have.property('type');",
+									"        pm.expect(joke.type).to.equal('dad');",
+									"        pm.expect(joke).to.have.property('setup');",
+									"        pm.expect(joke).to.have.property('punchline');",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/jokes/dad/random",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"jokes",
+								"dad",
+								"random"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Grab any number of random jokes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Each joke has required fields\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.forEach(function(joke) {",
+							"        pm.expect(joke).to.have.property('id');",
+							"        pm.expect(joke).to.have.property('type');",
+							"        pm.expect(joke).to.have.property('setup');",
+							"        pm.expect(joke).to.have.property('punchline');",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Response is an array of 3 jokes\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData.length).to.equal(3);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/jokes/random/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"jokes",
+						"random",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Grab joke by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has required fields\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('type');",
+							"    pm.expect(jsonData).to.have.property('setup');",
+							"    pm.expect(jsonData).to.have.property('punchline');",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    if (jsonData && jsonData.id) {",
+							"        pm.collectionVariables.set(\"jokeId\", jsonData.id);",
+							"        console.log(\"Saved joke ID to collection variable: \" + jsonData.id);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/jokes/{{jokeId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"jokes",
+						"{{jokeId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"const url = pm.variables.get(\"url\");",
+					"",
+					"if (!url) {",
+					"    console.error(\"Error: Variable 'url' is not defined!\");",
+					"    throw new Error(\"Variable 'url' is not defined!\");",
+					"}",
+					"",
+					"if (!url.startsWith('http://')) {",
+					"    console.error(\"Error: Variable 'url' must start with 'http://'\");",
+					"    throw new Error(\"Variable 'url' must start with 'http://'\");",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "jokeId",
+			"value": ""
+		}
+	]
+}
