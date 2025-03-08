@@ -492,12 +492,12 @@
 	"variable": [
 		{
 			"key": "url",
-			"value": "",
+			"value": "http://localhost:3005",
 			"type": "string"
 		},
 		{
 			"key": "jokeId",
-			"value": ""
+			"value": "144"
 		}
 	]
 }
