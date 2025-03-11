@@ -59,11 +59,9 @@ describe('PactV3 PetStore Order consumer tests', function () {
             return provider.executeTest(async (mockserver) => {
                 orderStoreService = new OrderStoreService(mockserver.url);
 
-                // ✅ Переконуємось, що замовлення створено
                 const responsePost = await orderStoreService.createOrder(orderExample);
                 expect(responsePost.data).to.deep.eq(orderExample);
 
-                // ✅ Переконуємось, що замовлення можна отримати
                 const response = await orderStoreService.getOrderById(orderExample.id);
                 expect(response.data).to.deep.eq(orderExample);
             });
