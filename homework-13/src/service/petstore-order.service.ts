@@ -24,7 +24,7 @@ export class OrderStoreService {
             url: '/v2/store/order',
             data: order
         }).catch(error => {
-            console.error(`Error creating order:`, error.response?.status);
+            console.error('Error creating order:', error.response?.status);
             throw error;
         });
     };

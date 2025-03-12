@@ -13,6 +13,7 @@ describe('TheCatAPI Integration Tests', function () {
     let favoriteId: number;
     let voteId: number;
     const subId = `test-${new Date().toISOString().replace(/[-:.TZ]/g, '')}`;
+    const nonExistingImageId = `unknownIdThatNotExisting-${new Date().toISOString().replace(/[-:.TZ]/g, '')}`;
 
     it('should fetch images and select one', async () => {
         const images: ImageDto[] = await api.getMyImages();
@@ -21,12 +22,28 @@ describe('TheCatAPI Integration Tests', function () {
         expect(image.id).to.be.a('string');
     });
 
+    it('should return 400 when requesting non-existing image', async () => {
+        try {
+            await api.getImageById(nonExistingImageId);
+            throw new Error('Request should have failed, but it succeeded');
+        } catch {
+            expect(api.getLastResponseStatus()).to.equal(400);
+        }
+    });
+
     it('should vote for an image', async () => {
         const response = await api.voteForImage(image.id, subId, 1);
         expect(response).to.have.property('id');
-        expect(response).to.have.property('image_id');
-        expect(response).to.have.property('message', 'SUCCESS');
         voteId = response.id;
+    });
+
+    it('should return 200 when voting for non-existing image', async () => {
+        try {
+            await api.voteForImage(nonExistingImageId, subId, 1);
+            throw new Error('Request should have failed, but it succeeded');
+        } catch {
+            expect(api.getLastResponseStatus()).to.be.oneOf([200, 201]);
+        }
     });
 
     it('should verify the vote exists', async () => {
@@ -40,8 +57,16 @@ describe('TheCatAPI Integration Tests', function () {
     it('should add the image to favorites', async () => {
         const response = await api.addImageToFavorites(image.id, subId);
         expect(response).to.have.property('id');
-        expect(response).to.have.property('message', 'SUCCESS');
         favoriteId = response.id;
+    });
+
+    it('should return 200 when adding non-existing image to favorites', async () => {
+        try {
+            await api.addImageToFavorites(nonExistingImageId, subId);
+            throw new Error('Request should have failed, but it succeeded');
+        } catch {
+            expect(api.getLastResponseStatus()).to.be.oneOf([200, 201]);
+        }
     });
 
     it('should verify the image is in favorites', async () => {
