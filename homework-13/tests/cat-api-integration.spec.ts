@@ -52,7 +52,7 @@ describe('TheCatAPI Integration Tests', function () {
         expect(response.status).to.be.oneOf([200, 201]);
         expect(response.data).to.have.property('id');
         voteId = response.data.id;
-        console.log(voteId);
+        //console.log(voteId);
     });
 
     // 4. Перевіряю, що голос за існуюче зображення є в списку.
