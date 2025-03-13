@@ -22,6 +22,7 @@ describe('TheCatAPI Integration Tests', function () {
     let image: ImageDto;
     let favoriteId: number;
     let voteId: number;
+    let nonExistedImagefavoriteId: number;
     const subId = `test-${new Date().toISOString().replace(/[-:.TZ]/g, '')}`;
     const nonExistingImageId = `unknownIdThatNotExisting-${new Date().toISOString().replace(/[-:.TZ]/g, '')}`;
 
@@ -92,10 +93,12 @@ describe('TheCatAPI Integration Tests', function () {
     // 7. Додаю НЕіснуюче зображення до вибраного
     it('should add non-existing image to favorites UNsuccessfully', async () => {
         const response = await api.addImageToFavorites(nonExistingImageId, subId);
+        if (response.data.id) {
+            nonExistedImagefavoriteId = response.data.id;
+        };
+        console.log(favoriteId);
         expect(response.status).to.equal(400);
         expect(response.data).to.not.have.property('id');
-        favoriteId = response.data.id;
-        console.log(favoriteId);
     });
 
     //8. Перевіряю, що існуюче зображення є у вибраному
@@ -106,6 +109,14 @@ describe('TheCatAPI Integration Tests', function () {
         const favorite = response.data.find(f => f.id === favoriteId);
         expect(favorite).to.exist;
         expect(favorite!.image_id).to.equal(image.id);
+    });
+
+    it('should confirm non-existed image is not in favorites', async () => {
+        const response = await api.getFavorites(subId);
+        expect(response.status).to.equal(200);
+
+        const favorite = response.data.find(f => f.id === nonExistedImagefavoriteId);
+        expect(favorite).to.be.undefined;
     });
 
     // 9. Видалити імедж з вибраного
