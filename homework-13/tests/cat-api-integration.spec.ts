@@ -96,7 +96,7 @@ describe('TheCatAPI Integration Tests', function () {
         if (response.data.id) {
             nonExistedImagefavoriteId = response.data.id;
         };
-        console.log(favoriteId);
+        //console.log(favoriteId);
         expect(response.status).to.equal(400);
         expect(response.data).to.not.have.property('id');
     });
