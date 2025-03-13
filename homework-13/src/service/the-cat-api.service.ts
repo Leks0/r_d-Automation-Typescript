@@ -1,12 +1,16 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { ImageDto } from '../models/image.dto';
 import { VoteDto } from '../models/vote.dto';
 import { FavoriteDto } from '../models/favorite.dto';
 
+interface ApiResponse<T> {
+    status: number;
+    data: T;
+}
+
 export class TheCatApi {
     public readonly baseUrl: string;
     private readonly apiKey: string;
-    private lastResponseStatus: number | null = null;
 
     public constructor(baseUrl: string, apiKey: string) {
         this.baseUrl = baseUrl;
@@ -21,82 +25,77 @@ export class TheCatApi {
         };
     }
 
-    private async handleRequest<T>(request: Promise<{ status: number; data: T }>): Promise<T> {
-        try {
-            const response = await request;
-            this.lastResponseStatus = response.status;
-            return response.data;
-        } catch (error) {
-            const axiosError = error as AxiosError;
-            this.lastResponseStatus = axiosError.response?.status ?? null;
-            console.error('API Error:', axiosError.response?.status, axiosError.response?.data);
-            throw axiosError;
-        }
+    public async getMyImages(): Promise<ApiResponse<ImageDto[]>> {
+        const response = await axios.get<ImageDto[]>(`${this.baseUrl}/images/search`, {
+            headers: this.getHeaders()
+        });
+        return { status: response.status, data: response.data };
     }
 
-    public getLastResponseStatus(): number | null {
-        return this.lastResponseStatus;
+    public async getImageById(imageId: string): Promise<ApiResponse<ImageDto>> {
+        const response = await axios.get<ImageDto>(`${this.baseUrl}/images/${imageId}`, {
+            headers: this.getHeaders()
+        });
+        return { status: response.status, data: response.data };
     }
 
-    public async getMyImages(): Promise<ImageDto[]> {
-        return this.handleRequest(
-            axios.get<ImageDto[]>(`${this.baseUrl}/images/search`, {
+    public async voteForImage(imageId: string, subId: string, value: number): Promise<ApiResponse<{ id: number }>> {
+        const response = await axios.post<{ id: number }>(
+            `${this.baseUrl}/votes`,
+            {
+                image_id: imageId,
+                sub_id: subId,
+                value: value
+            },
+            {
                 headers: this.getHeaders()
-            })
+            }
         );
+        return { status: response.status, data: response.data };
     }
 
-    public async getImageById(imageId: string): Promise<ImageDto> {
-        return this.handleRequest(
-            axios.get<ImageDto>(`${this.baseUrl}/images/${imageId}`, {
+    public async getVotes(subId?: string): Promise<ApiResponse<VoteDto[]>> {
+        const response = await axios.get<VoteDto[]>(`${this.baseUrl}/votes`, {
+            headers: this.getHeaders(),
+            params: subId ? { sub_id: subId } : undefined
+        });
+        return { status: response.status, data: response.data };
+    }
+
+    public async getVoteById(voteId: number): Promise<ApiResponse<VoteDto>> {
+        const response = await axios.get<VoteDto>(`${this.baseUrl}/votes/${voteId}`, {
+            headers: this.getHeaders()
+        });
+
+        return { status: response.status, data: response.data };
+    }
+
+    public async addImageToFavorites(imageId: string, subId: string): Promise<ApiResponse<{ id: number }>> {
+        const response = await axios.post<{ id: number }>(
+            `${this.baseUrl}/favourites`,
+            {
+                image_id: imageId,
+                sub_id: subId
+            },
+            {
                 headers: this.getHeaders()
-            })
+            }
         );
+        return { status: response.status, data: response.data };
     }
 
-    public async voteForImage(imageId: string, subId: string, value: number): Promise<{ id: number }> {
-        return this.handleRequest(
-            axios.post<{ id: number }>(
-                `${this.baseUrl}/votes`,
-                { image_id: imageId, sub_id: subId, value: value },
-                { headers: this.getHeaders() }
-            )
-        );
+    public async getFavorites(subId?: string): Promise<ApiResponse<FavoriteDto[]>> {
+        const response = await axios.get<FavoriteDto[]>(`${this.baseUrl}/favourites`, {
+            headers: this.getHeaders(),
+            params: subId ? { sub_id: subId } : undefined
+        });
+        return { status: response.status, data: response.data };
     }
 
-    public async getVotes(subId?: string): Promise<VoteDto[]> {
-        return this.handleRequest(
-            axios.get<VoteDto[]>(`${this.baseUrl}/votes`, {
-                headers: this.getHeaders(),
-                params: subId ? { sub_id: subId } : undefined
-            })
-        );
-    }
-
-    public async addImageToFavorites(imageId: string, subId: string): Promise<{ id: number }> {
-        return this.handleRequest(
-            axios.post<{ id: number }>(
-                `${this.baseUrl}/favourites`,
-                { image_id: imageId, sub_id: subId },
-                { headers: this.getHeaders() }
-            )
-        );
-    }
-
-    public async getFavorites(subId?: string): Promise<FavoriteDto[]> {
-        return this.handleRequest(
-            axios.get<FavoriteDto[]>(`${this.baseUrl}/favourites`, {
-                headers: this.getHeaders(),
-                params: subId ? { sub_id: subId } : undefined
-            })
-        );
-    }
-
-    public async removeFavorite(favoriteId: number): Promise<{ message: string }> {
-        return this.handleRequest(
-            axios.delete<{ message: string }>(`${this.baseUrl}/favourites/${favoriteId}`, {
-                headers: this.getHeaders()
-            })
-        );
+    public async removeFavorite(favoriteId: number): Promise<ApiResponse<{ message: string }>> {
+        const response = await axios.delete<{ message: string }>(`${this.baseUrl}/favourites/${favoriteId}`, {
+            headers: this.getHeaders()
+        });
+        return { status: response.status, data: response.data };
     }
 }
