@@ -38,12 +38,8 @@ describe('TheCatAPI Integration Tests', function () {
 
     //2. Не можу отримати зображення за неіснуючим ідентифікатором
     it('should fail to fetch non-existing image', async () => {
-        try {
-            await api.getImageById(nonExistingImageId);
-            throw new Error('Expected error not thrown');
-        } catch (error: any) {
-            expect(error.response.status).to.be.oneOf([400, 404]);
-        }
+        const response = await api.getImageById(nonExistingImageId);
+        expect(response.status).to.be.oneOf([400, 404]);
     });
 
     //3.Голосую за існуюче зображення
@@ -61,8 +57,11 @@ describe('TheCatAPI Integration Tests', function () {
         expect(response.status).to.equal(200);
 
         const vote = response.data.find((v) => v.id === voteId);
+        //console.log(vote);
         expect(vote).to.exist;
         expect(vote!.image_id).to.equal(image.id);
+        expect(vote!.image.id).to.equal(image.id);
+        expect(vote!.image.url).to.equal(image.url);
         expect(vote!.value).to.equal(1);
     });
     it('should confirm vote exists where get definite vote', async () => {
@@ -107,8 +106,11 @@ describe('TheCatAPI Integration Tests', function () {
         expect(response.status).to.equal(200);
 
         const favorite = response.data.find(f => f.id === favoriteId);
+        //console.log(favorite?.image.id);
         expect(favorite).to.exist;
         expect(favorite!.image_id).to.equal(image.id);
+        expect(favorite!.image.id).to.equal(image.id);
+        expect(favorite!.image.url).to.equal(image.url);
     });
 
     it('should confirm non-existed image is not in favorites', async () => {
