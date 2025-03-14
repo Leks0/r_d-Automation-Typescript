@@ -70,6 +70,8 @@ describe('TheCatAPI Integration Tests', function () {
         expect(response.status).to.equal(200);
         expect(response.data).to.have.property('id', voteId);
         expect(response.data.image_id).to.equal(image.id);
+        expect(response.data.image.id).to.equal(image.id);
+        expect(response.data.image.url).to.equal(image.url);
         expect(response.data.value).to.equal(1);
     });
 
