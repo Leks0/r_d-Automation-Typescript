@@ -1,2 +1,2 @@
-export * from './breeds.dto';
-export * from './images.dto';
+export * from './breed.dto';
+export * from './image.dto';

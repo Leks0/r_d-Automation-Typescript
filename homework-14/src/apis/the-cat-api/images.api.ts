@@ -1,19 +1,19 @@
 import { IApiService } from 'src/services/interfaces/i-api.service';
 import * as fs from 'fs';
-import { ImageDto } from 'src/dto/the-cat-api';
+import { BreedDto, ImageDto } from 'src/dto/the-cat-api';
 
 export class ImagesApi {
     public constructor(private apiService: IApiService) {}
 
-    public async imageSearch(): Promise<[Response, ImageDto[]]> {
+    public async imageSearch(params?: Record<string, string | number | boolean>): Promise<[Response, ImageDto[]]> {
         const endpoint = '/images/search';
-        const response = await this.apiService.get(endpoint);
+        const response = await this.apiService.get(endpoint, params);
         const responseData = await response.json();
 
         return await [response, responseData];
     }
 
-    public async getImageById(imageId: string): Promise<[Response, ImageDto[]]> {
+    public async getImageById(imageId: string): Promise<[Response, ImageDto]> {
         const endpoint = `/images/${imageId}`;
         const response = await this.apiService.get(endpoint);
         const responseData = await response.json();
@@ -21,7 +21,7 @@ export class ImagesApi {
         return await [response, responseData];
     }
 
-    public async imageAnalysis(imageId: string): Promise<[Response, ImageDto[]]> {
+    public async imageAnalysis(imageId: string): Promise<[Response, unknown[]]> {
         const endpoint = `/images/${imageId}/analysis`;
         const response = await this.apiService.get(endpoint);
         const responseData = await response.json();
@@ -37,31 +37,31 @@ export class ImagesApi {
         return await [response, responseData];
     }
 
-    public async imageUpload(imagePath: string, subId?: string, breeds?:string[]): Promise<[Response, ImageDto]> {
-        const formData = new FormData();
+    public async uploadImage(imagePath: string, subId?: string, breeds?:string[]): Promise<[Response, ImageDto]> {
         const file = fs.readFileSync(imagePath);
-        const binFile = new File([file], 'cat_picture.webp', { type: 'image/webp' });
+        const binFile = new File([file], '71.jpg', { type: 'image/jpeg' });
+
+        const formData = new FormData();
         formData.append('file', binFile);
         subId ? formData.append('sub_id', subId) : null;
         breeds ? formData.append('breeds', breeds.join(',')) : null;
 
-        const endpoint = '/image/upload';
-        const response = await this.apiService.postFile(endpoint, formData);
+        const endpoint = '/images/upload';
+        const response = await this.apiService.post(endpoint, formData);
         const responseData = await response.json();
 
-        return await [response, responseData];
+        return await [response as Response, responseData];
     }
 
-    public async imageDelete(imageId: string): Promise<[Response, ImageDto]> {
+    public async imageDelete(imageId: string): Promise<[Response, number]> {
         const endpoint = `/images/${imageId}`;
         const response = await this.apiService.del(endpoint);
-        const responseData = await response.json();
 
-        return await [response, responseData];
+        return await [response, response.status];
     }
 
-    public async getBreeds(): Promise<[Response, ImageDto[]]> {
-        const endpoint = '/images';
+    public async getBreeds(imageId: string): Promise<[Response, BreedDto[]]> {
+        const endpoint = `/images/${imageId}/breeds`;
         const response = await this.apiService.get(endpoint);
         const responseData = await response.json();
 
@@ -77,11 +77,10 @@ export class ImagesApi {
         return await [response, responseData];
     }
 
-    public async delBreedById(imageId: string, breedId: string): Promise<[Response, ImageDto[]]> {
+    public async delBreedById(imageId: string, breedId: string): Promise<[Response, number]> {
         const endpoint = `/images/${imageId}/breeds/${breedId}`;
         const response = await this.apiService.del(endpoint);
-        const responseData = await response.json();
 
-        return await [response, responseData];
+        return await [response, response.status];
     }
 }
