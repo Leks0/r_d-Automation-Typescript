@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest';
 import { ConfigService } from 'src/services/config.service';
 import { FetchApiService } from 'src/services/fetch-api.service';
-import { ImagesApi } from 'src/apis/the-cat-api/images.api';
-import { ImageDto } from '../../src/dto/the-cat-api/image.dto';
+import { ImagesApi } from 'src/apis/images.api';
+import { ImageDto } from 'src/dto/image.dto';
 
 describe('The Cats API Images Tests', () => {
     const configService = new ConfigService();

@@ -1,6 +1,7 @@
 import { IApiService } from 'src/services/interfaces/i-api.service';
 import * as fs from 'fs';
-import { BreedDto, ImageDto } from 'src/dto/the-cat-api';
+import { BreedDto, ImageDto } from 'src/dto/index';
+import * as path from 'path';
 
 export class ImagesApi {
     public constructor(private apiService: IApiService) {}
@@ -39,7 +40,7 @@ export class ImagesApi {
 
     public async uploadImage(imagePath: string, subId?: string, breeds?:string[]): Promise<[Response, ImageDto]> {
         const file = fs.readFileSync(imagePath);
-        const binFile = new File([file], '71.jpg', { type: 'image/jpeg' });
+        const binFile = new File([file], path.basename(imagePath), { type: 'image/jpeg' });
 
         const formData = new FormData();
         formData.append('file', binFile);

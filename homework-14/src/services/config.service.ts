@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv-safe';
-import { ConfigDto } from 'src/dto/the-cat-api/config.dto';
+import { ConfigDto } from 'src/dto/config.dto';
 
 export class ConfigService {
     public constructor() {
