@@ -6,7 +6,7 @@
     ```json
     console.log(document.querySelector('input#gh-ac') !== null);
     ```
-### XSS-selector
+### XPath-selector
     ```json
     console.log($x("//input[@id='gh-ac']").length > 0);
     ```
@@ -16,7 +16,7 @@
     ```json
     console.log(document.querySelector('button.gh-search-input__clear-btn') !== null && window.getComputedStyle(document.querySelector('button.gh-search-input__clear-btn')).visibility === 'hidden');
     ```
-### XSS-selector
+### XPath-selector
     ```json
     console.log($x("//button[contains(@class, 'gh-search-input__clear-btn')]")[0] !== undefined && window.getComputedStyle($x("//button[contains(@class, 'gh-search-input__clear-btn')]")[0]).visibility === 'hidden');
     ```
@@ -26,7 +26,7 @@
     ```json
     console.log(document.querySelector('button#gh-search-btn') !== null);
     ```
-### XSS-selector
+### XPath-selector
     ```json
     console.log($x("//button[@id='gh-search-btn']").length == 1);
     ```
@@ -36,7 +36,7 @@
     ```json
     console.log(document.querySelector('input#gh-ac').value === 'macbook pro');
     ```
-### XSS-selector
+### XPath-selector
     ```json
     console.log($x("//input[@id='gh-ac']")[0].value === 'macbook pro');
     ```
@@ -46,7 +46,7 @@
     ```json
     console.log(document.querySelector('button.gh-search-input__clear-btn.is-active') !== null);
     ```
-### XSS-selector
+### XPath-selector
     ```json
     console.log($x("//button[contains(@class, 'gh-search-input__clear-btn') and contains(@class, 'is-active')]").length > 0);
     
