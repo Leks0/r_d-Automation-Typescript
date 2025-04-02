@@ -35,16 +35,28 @@ describe('E2E Тест: Пошук товару на eBay', () => {
 
         await homePage.searchFor(searchData);
 
-        let currentUrl = await resultsPage.getCurrentUrl();
-        expect(currentUrl).toContain('ebay.com/sch/');
-        expect(currentUrl).toContain('_nkw=macbook');
+        // Переконаємось, що результати пошуку відображаються
+        await resultsPage.waitForResults();
+        await resultsPage.checkAtLeastOneItemExists();
 
+        // Використовуємо фільтр "Buy It Now"
         await resultsPage.filterBuyItNow();
-        currentUrl = await resultsPage.getCurrentUrl();
-        expect(currentUrl).toContain('LH_BIN=1');
 
+        // Перевіримо, що фільтр "Buy It Now" застосувався (через UI)
+        const buyItNowClass = await resultsPage.buyItNowFilter.getAttribute('class');
+        expect(buyItNowClass).toContain('fake-tabs__item--current');
+
+        // Використовуємо фільтр "New"
         await resultsPage.filterNewCondition();
-        currentUrl = await resultsPage.getCurrentUrl();
-        expect(currentUrl).toContain('LH_ItemCondition=1000');
+
+        // Перевіримо, що чекбокс "New" дійсно обраний
+        expect(resultsPage.newConditionCheckbox.$('input')).toBeSelected();
+
+        // Перевіряємо, що після застосування фільтрів результати присутні
+        await resultsPage.waitForResults();
+        await resultsPage.checkAtLeastOneItemExists();
+
+        // Додатково перевіряємо структуру першого елемента результатів
+        await resultsPage.checkFirstItemStructure();
     });
 });

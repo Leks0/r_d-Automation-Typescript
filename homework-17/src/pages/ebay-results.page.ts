@@ -23,7 +23,7 @@ export class EbayResultsPage {
      * Заголовок, де відображається кількість/текст пошукового запиту
      */
     public get resultsQueryText(): ChainablePromiseElement {
-        return $('//*[@id="mainContent"]/div[2]/div/div[1]/div[1]/div[1]/h1/span[2]');
+        return $('//*[@id="mainContent"]//h1/span[2]');
     }
 
     /**
@@ -37,7 +37,7 @@ export class EbayResultsPage {
      * Локатор фільтра "Buy It Now"
      */
     public get buyItNowFilter(): ChainablePromiseElement {
-        return $('//*[@id="mainContent"]/div[2]/div/div[2]/div[2]/div[1]/div/ul/li[3]');
+        return $('//li[contains(@class, "fake-tabs__item") and contains(., "Buy It Now")]');
     }
 
     /**
@@ -69,16 +69,17 @@ export class EbayResultsPage {
      * Перевірити наявність ключових елементів у першому товарі списку
      */
     public async checkFirstItemStructure(): Promise<void> {
-        const allItems = await this.items;
-        const firstItem = allItems[0];
+        const firstItem = await $('//*[@id="srp-river-results"]/ul/li[1]');
 
-        if (!firstItem) {
-            throw new Error('No items found to check structure.');
+        if (!(await firstItem.isExisting())) {
+            throw new Error('No first item found in results.');
         }
 
-        await expect(firstItem.$('//*[@id="srp-river-results"]/ul/li[1]')).toBeExisting();
-        await expect(firstItem.$('//*[@id="srp-river-results"]/ul/li[1]/div[1]')).toBeExisting();
-        await expect(firstItem.$('//*[@id="srp-river-results"]/ul/li[1]/div[2]')).toBeExisting();
+        // Вкладені елементи шукаємо відносними селекторами (починаючи з .//)
+        await expect(firstItem.$('.//div[contains(@class,"s-item__wrapper")]')).toBeExisting();
+        await expect(firstItem.$('.//div[contains(@class,"s-item__image-wrapper")]')).toBeExisting();
+        await expect(firstItem.$('.//div[contains(@class,"s-item__info")]')).toBeExisting();
+        await expect(firstItem.$('.//div[contains(@class,"s-item__title")]')).toBeExisting();
     }
 
     /**
