@@ -104,4 +104,19 @@ export class EbayResultsPage {
     public async getCurrentUrl(): Promise<string> {
         return browser.getUrl();
     }
+
+    /**
+     * Перевірити, що фільтр "Buy it now" застосовано
+     */
+    public async isBuyItNowActive(): Promise<boolean> {
+        const classAttribute = await this.buyItNowFilter.getAttribute('class');
+        return classAttribute.includes('fake-tabs__item--current');
+    }
+
+    /**
+     * Геттер для чекбокса "New"
+     */
+    public get checkboxInput(): ChainablePromiseElement {
+        return this.newConditionCheckbox.$('input');
+    }
 }

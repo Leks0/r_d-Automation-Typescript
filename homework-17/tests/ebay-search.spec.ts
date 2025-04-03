@@ -43,14 +43,13 @@ describe('E2E Тест: Пошук товару на eBay', () => {
         await resultsPage.filterBuyItNow();
 
         // Перевіримо, що фільтр "Buy It Now" застосувався (через UI)
-        const buyItNowClass = await resultsPage.buyItNowFilter.getAttribute('class');
-        expect(buyItNowClass).toContain('fake-tabs__item--current');
+        expect(await resultsPage.isBuyItNowActive()).toBe(true);
 
         // Використовуємо фільтр "New"
         await resultsPage.filterNewCondition();
 
         // Перевіримо, що чекбокс "New" дійсно обраний
-        expect(resultsPage.newConditionCheckbox.$('input')).toBeSelected();
+        expect(resultsPage.checkboxInput).toBeSelected();
 
         // Перевіряємо, що після застосування фільтрів результати присутні
         await resultsPage.waitForResults();
