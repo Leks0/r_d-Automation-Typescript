@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 
 /**
  * Read environment variables from file.
@@ -36,57 +36,40 @@ export default defineConfig({
         screenshot: 'on',
         video: 'on'
         // storageState: 'browser-context.json'
-    },
+    }
 
     /* Configure projects for major browsers */
-    projects: [
-        {
-            name: 'jira-login',
-            use: {
-                ...devices['Desktop Chrome']
-            },
-            testMatch: '**/*atlassian-login.setup.ts'
-        },
-        {
-            name: 'jira-test',
-            use: {
-                ...devices['Desktop Chrome'],
-                storageState: 'browser-context.json'
-            },
-            testMatch: 'jira/**/*.@(spec|test).?(c|m)[t]s?(x)',
-            dependencies: ['jira-login']
-        }
+    //projects: [
+    // {
+    //     name: 'firefox',
+    //     use: { ...devices['Desktop Firefox'] }
+    // },
 
-        // {
-        //     name: 'firefox',
-        //     use: { ...devices['Desktop Firefox'] }
-        // },
+    // {
+    //     name: 'webkit',
+    //     use: { ...devices['iPhone SE'] }
+    // }
 
-        // {
-        //     name: 'webkit',
-        //     use: { ...devices['iPhone SE'] }
-        // }
+    /* Test against mobile viewports. */
+    // {
+    //   name: 'Mobile Chrome',
+    //   use: { ...devices['Pixel 5'] },
+    // },
+    // {
+    //   name: 'Mobile Safari',
+    //   use: { ...devices['iPhone 12'] },
+    // },
 
-        /* Test against mobile viewports. */
-        // {
-        //   name: 'Mobile Chrome',
-        //   use: { ...devices['Pixel 5'] },
-        // },
-        // {
-        //   name: 'Mobile Safari',
-        //   use: { ...devices['iPhone 12'] },
-        // },
-
-        /* Test against branded browsers. */
-        // {
-        //   name: 'Microsoft Edge',
-        //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-        // },
-        // {
-        //   name: 'Google Chrome',
-        //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-        // },
-    ]
+    /* Test against branded browsers. */
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    // },
+    // {
+    //   name: 'Google Chrome',
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    // },
+    //]
 
     /* Run your local dev server before starting the tests */
     // webServer: {
