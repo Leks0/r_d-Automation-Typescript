@@ -24,18 +24,17 @@ test.describe('NerdFonts page checks', () => {
         await nerdPage.goto();
 
         // Перевіримо, що хедер, лого та поле пошуку присутні:
-        await expect(await nerdPage.isMainMenuVisible()).toBe(true);
-        await expect(await nerdPage.isLogoVisible()).toBe(true);
-        await expect(await nerdPage.isSearchFieldVisible()).toBe(true);
+        await expect(nerdPage.mainMenu).toBeVisible;
+        await expect(nerdPage.logo).toBeVisible;
+        await expect(nerdPage.searchField).toBeVisible;
 
         // Отримуємо назви пунктів меню
-        const menuItemTitles = await nerdPage.getMenuItemTitles();
+        const menuItemTitles = await nerdPage.menuItems.allInnerTexts();
         // Перевіримо, що отримані всі очікувані пункти
         for (const expectedItem of expectedMenuItems) {
             expect(menuItemTitles).toContain(expectedItem);
         }
 
-        // Для прикладу, виведемо назви у консоль (за бажанням)
         console.log('Menu items:', menuItemTitles);
     });
 
@@ -43,16 +42,16 @@ test.describe('NerdFonts page checks', () => {
         const mainPage = new MainPage(page);
         await mainPage.goto();
 
-        await mainPage.clickHomeMenu();
+        await mainPage.homeMenu.click();
 
-        await expect(await mainPage.isHomeLogoVisible()).toBe(true);
+        await expect(mainPage.homeLogo).toBeVisible;
 
-        await expect(await mainPage.isSearchButtonVisible()).toBe(true);
-        const searchBtnText = await mainPage.getSearchButtonText();
+        await expect(mainPage.searchButton).toBeVisible;
+        const searchBtnText = await mainPage.searchButton.innerText();
         await expect(searchBtnText).toBe('Icons');
 
-        await expect(await mainPage.isDownloadButtonVisible()).toBe(true);
-        const downloadBtnText = await mainPage.getDownloadButtonText();
+        await expect(mainPage.downloadButton).toBeVisible;
+        const downloadBtnText = await mainPage.downloadButton.innerText();
         await expect(downloadBtnText).toBe('Downloads');
     });
 });
