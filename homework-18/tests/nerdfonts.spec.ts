@@ -36,7 +36,7 @@ test.describe('NerdFonts page checks', () => {
             expect(trimmedMenuItems).toContain(expectedItem);
         }
 
-        console.log('Menu items:', menuItemTitles);
+        //console.log('Menu items:', menuItemTitles);
     });
 
     test('navigate Home and check elements on the main page', async ({ page }) => {
