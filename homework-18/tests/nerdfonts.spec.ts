@@ -30,9 +30,10 @@ test.describe('NerdFonts page checks', () => {
 
         // Отримуємо назви пунктів меню
         const menuItemTitles = await nerdPage.menuItems.allInnerTexts();
+        const trimmedMenuItems = menuItemTitles.map(item => item.trim());
         // Перевіримо, що отримані всі очікувані пункти
         for (const expectedItem of expectedMenuItems) {
-            expect(menuItemTitles).toContain(expectedItem);
+            expect(trimmedMenuItems).toContain(expectedItem);
         }
 
         console.log('Menu items:', menuItemTitles);
