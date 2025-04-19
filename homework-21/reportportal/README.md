@@ -1,12 +1,6 @@
 # Lesson 21: Reports
 
-## 1. Allure
-! java must be installed!
-1. npm i -D allure-commandline allure-playwright
-2. npm run test
-3. npm run allure:generate && npm run allure:open
-
-## 2. ReportPortal (works for m1 mac)
+## ReportPortal (works for m1 mac)
 ! Docker must be installed!
 1. mkdir ~/reportportal && cd ~/reportportal
 2. curl -O https://raw.githubusercontent.com/reportportal/reportportal/master/docker-compose.yml

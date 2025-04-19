@@ -6,8 +6,7 @@
     "scripts": {
         "test": "playwright test",
         "allure:generate": "allure generate ./allure-results --clean",
-        "allure:open": "allure open ./allure-report",
-        "test:ci": "PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npm run test"
+        "allure:serve":  "npx http-server ./allure-report -p 5050"
     },
     "keywords": [],
     "author": "",

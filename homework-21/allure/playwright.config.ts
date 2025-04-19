@@ -1,17 +1,4 @@
 import { defineConfig } from '@playwright/test';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
-
-// Конфіг ReportPortal
-const rpConfig = {
-    apiKey: process.env.RP_API_KEY!,
-    endpoint: process.env.RP_ENDPOINT!,
-    project: process.env.RP_PROJECT!,
-    description: 'Playwright regression suite',
-    attributes: [{ key: 'env', value: process.env.TEST_ENV || 'local' }],
-    launch: 'Playwright run'
-};
 
 /**
  * Read environment variables from file.
@@ -37,8 +24,7 @@ export default defineConfig({
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: [
         ['html'],
-        ['allure-playwright'],
-        ['@reportportal/agent-js-playwright', rpConfig]
+        ['allure-playwright']
     ],
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
