@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  expense-tracker-app:
+    build: ./app
+    container_name: expense-tracker-app
+    ports:
+      - "3000:3000"
+    environment:
+      - HOST=0.0.0.0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+
+  playwright-tests:
+    build: ./tests
+    container_name: playwright-tests
+    depends_on:
+      expense-tracker-app:
+        condition: service_healthy
+    extra_hosts:
+      - "localhost:host-gateway"
+    environment:
+      - BASE_URL=${BASE_URL}
+      - RP_API_KEY=${RP_API_KEY}
+      - RP_PROJECT=${RP_PROJECT}
+      - RP_ENDPOINT=${RP_ENDPOINT}
+      - RP_LAUNCH_NAME=${RP_LAUNCH_NAME}
