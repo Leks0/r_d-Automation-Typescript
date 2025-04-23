@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "lib": [
+      "ESNext",
+      "es6",
+      "DOM"
+    ],
+    "rootDir": ".",
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": "build",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    /* Type Checking */
+    "strict": true,
+    "skipLibCheck": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "eslint.config.mjs",
+    "./build/**/*",
+    "./node_modules/**/*"
+  ]
+}
