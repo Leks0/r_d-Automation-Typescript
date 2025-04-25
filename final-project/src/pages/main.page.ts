@@ -2,15 +2,16 @@ import { Page } from '@playwright/test';
 import { Header, SideMenu } from '../elements/main.element';
 
 export class MainPage {
-  readonly header: Header;
-  readonly sideMenu: SideMenu;
+    public constructor(private page: Page) {}
 
-  constructor(private page: Page) {
-    this.header = new Header(page);
-    this.sideMenu = new SideMenu(page);
-  }
+    public get el(): { header: Header; sideMenu: SideMenu } {
+        return {
+            header: new Header(this.page),
+            sideMenu: new SideMenu(this.page)
+        };
+    }
 
-  async goto() {
-    await this.page.goto('/');
-  }
+    public async goto(): Promise<void> {
+        await this.page.goto('/');
+    }
 }

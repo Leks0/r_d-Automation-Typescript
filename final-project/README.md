@@ -25,26 +25,18 @@
 ```
 src/
 ├── elements/                       # UI елементи, описані для кожної сторінки
-│   ├── expenses.element.ts
-│   ├── login.element.ts
-│   ├── main.element.ts 
-│   └── register.element.ts
-├── pages/                          # Page Object класи
-│   ├── expenses.page.ts
-│   ├── login.page.ts
-│   ├── main.page.ts
-│   └── register.page.ts
-
+│   └── *.element.ts
+└── pages/                          # Page Object класи
+    └── *.page.ts 
 tests/
 ├── api/                            # API тести
-│   ├── auth.api.spec.ts
-│   └── transactions.api.spec.ts 
+│   └── *.api.spec.ts 
 ├── ui/                             # UI тести
-│   ├── expenses.spec.ts
-│   ├── login.spec.ts
-│   ├── main.spec.ts
-│   └── register.spec.ts
-├── utils/                          # Допоміжні утиліти
+│   └── *.spec.ts
+├── api/                          # API objects
+│   └── *.api.ts
+└── dto/                          # DTO
+    └── *.dto.ts
 
 allure-results/                     # Сира інформація для Allure
 allure-report/                      # Згенеровані HTML звіти

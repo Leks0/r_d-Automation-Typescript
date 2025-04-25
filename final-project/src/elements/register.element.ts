@@ -1,21 +1,33 @@
 import { Locator, Page } from '@playwright/test';
 
 export class RegisterForm {
-  readonly email: Locator;
-  readonly password: Locator;
-  readonly confirmPassword: Locator;
-  readonly groupSelect: Locator;
-  readonly vatCheckbox: Locator;
-  readonly generalCheckbox: Locator;
-  readonly submitButton: Locator;
+    public constructor(private page: Page) {}
 
-  constructor(page: Page) {
-    this.email = page.locator('#formEmail');
-    this.password = page.locator('#formPassword');
-    this.confirmPassword = page.locator('#formConfirmPassword');
-    this.groupSelect = page.locator('#formFopGroup');
-    this.vatCheckbox = page.locator('#formFopVat');
-    this.generalCheckbox = page.locator('#formFopGeneral');
-    this.submitButton = page.locator('.btn.btn-primary'); // спрощений селектор
-  }
+    public get email(): Locator {
+        return this.page.locator('#formEmail');
+    }
+
+    public get password(): Locator {
+        return this.page.locator('#formPassword');
+    }
+
+    public get confirmPassword(): Locator {
+        return this.page.locator('#formConfirmPassword');
+    }
+
+    public get groupSelect(): Locator {
+        return this.page.locator('#formFopGroup');
+    }
+
+    public get vatCheckbox(): Locator {
+        return this.page.locator('#formFopVat');
+    }
+
+    public get generalCheckbox(): Locator {
+        return this.page.locator('#formFopGeneral');
+    }
+
+    public get submitButton(): Locator {
+        return this.page.locator('.btn.btn-primary');
+    }
 }

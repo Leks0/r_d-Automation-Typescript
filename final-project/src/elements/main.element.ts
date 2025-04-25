@@ -1,43 +1,57 @@
 import { Locator, Page } from '@playwright/test';
 
 export class Header {
-  readonly homeLink: Locator;
-  readonly registerLink: Locator;
-  readonly loginLink: Locator;
+    public constructor(private page: Page) {}
 
-  constructor(page: Page) {
-    this.homeLink = page.getByRole('link', { name: 'Домашня' });
-    this.registerLink = page.getByRole('link', { name: 'Реєстрація' });
-    this.loginLink = page.getByRole('link', { name: 'Увійти' });
-  }
+    public get homeLink(): Locator {
+        return this.page.getByRole('link', { name: 'Домашня' });
+    }
+
+    public get registerLink(): Locator {
+        return this.page.getByRole('link', { name: 'Реєстрація' });
+    }
+
+    public get loginLink(): Locator {
+        return this.page.getByRole('link', { name: 'Увійти' });
+    }
 }
 
 export class SideMenu {
-  readonly income: Locator;
-  readonly expenses: Locator;
-  readonly taxes: Locator;
-  readonly reports: Locator;
-  readonly basics: Locator;
+    public constructor(private page: Page) {}
 
-  // Вкладені пункти "Податки"
-  readonly taxesCurrent: Locator;
-  readonly taxesPaid: Locator;
+    public get income(): Locator {
+        return this.page.locator('text=Прибутки');
+    }
 
-  // Вкладені пункти "Звіти"
-  readonly reportsAll: Locator;
-  readonly reportsSubmitted: Locator;
+    public get expenses(): Locator {
+        return this.page.locator('text=Витрати');
+    }
 
-  constructor(page: Page) {
-    this.income = page.locator('text=Прибутки');
-    this.expenses = page.locator('text=Витрати');
-    this.taxes = page.locator('text=Податки');
-    this.reports = page.locator('text=Звіти');
-    this.basics = page.locator('text=Основи для розрахунку');
+    public get taxes(): Locator {
+        return this.page.locator('text=Податки');
+    }
 
-    this.taxesCurrent = page.locator('div.side-navigation-panel-select-inner-option', { hasText: 'Поточні' });
-    this.taxesPaid = page.locator('div.side-navigation-panel-select-inner-option', { hasText: 'Сплачені' });
+    public get reports(): Locator {
+        return this.page.locator('text=Звіти');
+    }
 
-    this.reportsAll = page.locator('div.side-navigation-panel-select-inner-option', { hasText: 'Усі' });
-    this.reportsSubmitted = page.locator('div.side-navigation-panel-select-inner-option', { hasText: 'Подані' });
-  }
+    public get basics(): Locator {
+        return this.page.locator('text=Основи для розрахунку');
+    }
+
+    public get taxesCurrent(): Locator {
+        return this.page.locator('div.side-navigation-panel-select-inner-option', { hasText: 'Поточні' });
+    }
+
+    public get taxesPaid(): Locator {
+        return this.page.locator('div.side-navigation-panel-select-inner-option', { hasText: 'Сплачені' });
+    }
+
+    public get reportsAll(): Locator {
+        return this.page.locator('div.side-navigation-panel-select-inner-option', { hasText: 'Усі' });
+    }
+
+    public get reportsSubmitted(): Locator {
+        return this.page.locator('div.side-navigation-panel-select-inner-option', { hasText: 'Подані' });
+    }
 }

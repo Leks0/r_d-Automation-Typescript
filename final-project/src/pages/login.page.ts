@@ -1,23 +1,23 @@
-import { Page } from '@playwright/test';
+import { Page, Response } from '@playwright/test';
 import { LoginForm } from '../elements/login.element';
 
 export class LoginPage {
-  readonly form: LoginForm;
+    public constructor(private page: Page) {}
 
-  constructor(private page: Page) {
-    this.form = new LoginForm(page);
-  }
+    public get el(): LoginForm {
+        return new LoginForm(this.page);
+    }
 
-  async goto() {
-    await this.page.goto('/auth/login');
-  }
+    public async goto(): Promise<void> {
+        await this.page.goto('/auth/login');
+    }
 
-  async submitAndCheck() {
-    const [response] = await Promise.all([
-      this.page.waitForResponse((res) => res.request().method() === "POST"),
-      this.form.submitButton.click(),
-    ]);
+    public async submitAndCheck(): Promise<Response> {
+        const [response] = await Promise.all([
+            this.page.waitForResponse((res) => res.request().method() === 'POST'),
+            this.el.submitButton.click()
+        ]);
 
-    return response;
-  }
+        return response;
+    }
 }

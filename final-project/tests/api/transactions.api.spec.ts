@@ -1,37 +1,27 @@
-import { test, expect, request } from '@playwright/test';
-
-const credentials = {
-  email: `testuser_${Date.now()}@test.com`,
-  password: 'demo123',
-};
+import { test, expect } from '@playwright/test';
+import { TransactionsAPI } from '../../src/api/transactions.api';
 
 test.describe('API: Transactions', () => {
-  test('Додати прибуток', async ({ request }) => {
-    const res = await request.post('/api/income', {
-      //headers: { Authorization: `Bearer ${token}` }, // якщо б залогінився - був би токен
-      data: {
-        date: new Date().toISOString().split('T')[0],
-        amount: 5000,
-        currency: 'UAH',
-        comment: 'зарплата'
-      }
+    test('Додати прибуток', async ({ request }) => {
+        const api = new TransactionsAPI(request);
+        const res = await api.addIncome({
+            date: new Date().toISOString().split('T')[0],
+            amount: 5000,
+            currency: 'UAH',
+            comment: 'зарплата'
+        });
+        expect(res.status()).toBe(200);
     });
 
-    expect(res.status()).toBe(200);
-  });
-
-  test('Додати витрату', async ({ request }) => {
-    const res = await request.post('/api/expense', {
-      //headers: { Authorization: `Bearer ${token}` }, // якщо б залогінився - був би токен
-      data: {
-        date: new Date().toISOString().split('T')[0],
-        amount: 2000,
-        currency: 'UAH',
-        comment: 'квіти',
-        cash: true
-      }
+    test('Додати витрату', async ({ request }) => {
+        const api = new TransactionsAPI(request);
+        const res = await api.addExpense({
+            date: new Date().toISOString().split('T')[0],
+            amount: 2000,
+            currency: 'UAH',
+            comment: 'квіти',
+            cash: true
+        });
+        expect(res.status()).toBe(200);
     });
-
-    expect(res.status()).toBe(200);
-  });
 });

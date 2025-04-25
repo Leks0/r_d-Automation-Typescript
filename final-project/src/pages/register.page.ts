@@ -1,42 +1,36 @@
-import { Page } from "@playwright/test";
-import { RegisterForm } from "../elements/register.element";
-
-export interface RegisterData {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  group: string;
-  vat: boolean;
-  general: boolean;
-}
+import { Page, Response } from '@playwright/test';
+import { RegisterForm } from '../elements/register.element';
+import { RegisterData } from '../dto/register-data.dto';
 
 export class RegisterPage {
-  readonly form: RegisterForm;
+    public constructor(private page: Page) {}
 
-  constructor(private page: Page) {
-    this.form = new RegisterForm(page);
-  }
+    public get el(): RegisterForm {
+        return new RegisterForm(this.page);
+    }
 
-  async goto() {
-    await this.page.goto("/auth/register");
-  }
+    public async goto(): Promise<void> {
+        await this.page.goto('/auth/register');
+    }
 
-  async fillForm(data: RegisterData) {
-    await this.form.email.fill(data.email);
-    await this.form.password.fill(data.password);
-    await this.form.confirmPassword.fill(data.confirmPassword);
-    await this.form.groupSelect.selectOption({ label: data.group });
+    public async fillForm(data: RegisterData): Promise<void> {
+        await this.el.email.fill(data.email);
+        await this.el.password.fill(data.password);
+        await this.el.confirmPassword.fill(data.confirmPassword);
+        await this.el.groupSelect.selectOption({ label: data.group });
 
-    if (data.vat) await this.form.vatCheckbox.check();
-    if (data.general) await this.form.generalCheckbox.check();
-  }
+        if (data.vat) await this.el.vatCheckbox.check();
+        if (data.general) await this.el.generalCheckbox.check();
+    }
 
-  async submitAndCheck() {
-    const [response] = await Promise.all([
-      this.page.waitForResponse((res) => res.request().method() === "POST"),
-      this.form.submitButton.click(),
-    ]);
+    public async submitAndCheck(): Promise<Response> {
+        const [response] = await Promise.all([
+            this.page.waitForResponse((res) => res.request().method() === 'POST'),
+            this.el.submitButton.click()
+        ]);
 
-    return response;
-  }
+        return response;
+    }
 }
+export { RegisterData };
+

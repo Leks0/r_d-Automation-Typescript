@@ -1,37 +1,53 @@
 import { Locator, Page } from '@playwright/test';
 
 export class ExpensesPageElements {
-  readonly alert: Locator;
-  readonly alertCloseBtn: Locator;
-  readonly table: Locator;
-  readonly addExpenseBtn: Locator;
+    public constructor(private page: Page) {}
 
-  // modal elements
-  readonly modal: Locator;
-  readonly modalDate: Locator;
-  readonly modalAmount: Locator;
-  readonly modalCurrency: Locator;
-  readonly modalComment: Locator;
-  readonly modalCashCheckbox: Locator;
-  readonly modalSaveBtn: Locator;
-  readonly modalCancelBtn: Locator;
+    public get alert(): Locator {
+        return this.page.locator('.MuiAlert-message', { hasText: 'потрібно авторизуватися' });
+    }
 
-  constructor(page: Page) {
-    this.alert = page.locator('.MuiAlert-message', {
-      hasText: 'потрібно авторизуватися',
-    });
+    public get alertCloseBtn(): Locator {
+        return this.page.locator('[aria-label="Close"]');
+    }
 
-    this.alertCloseBtn = page.locator('[aria-label="Close"]');
-    this.table = page.locator('#test-table table');
-    this.addExpenseBtn = page.locator('button[title="Додати витрати"]');
+    public get table(): Locator {
+        return this.page.locator('#test-table table');
+    }
 
-    this.modal = page.locator('#Row-new');
-    this.modalDate = page.locator('input#Date-New');
-    this.modalAmount = page.locator('input#Expense-New');
-    this.modalCurrency = page.locator('select#Currency-New');
-    this.modalComment = page.locator('input#Comment-New');
-    this.modalCashCheckbox = page.locator('input#Cash-New');
-    this.modalSaveBtn = page.locator('button#BtnAdd-New');
-    this.modalCancelBtn = page.locator('button#BtnCancel-New');
-  }
+    public get addExpenseBtn(): Locator {
+        return this.page.locator('button[title="Додати витрати"]');
+    }
+
+    public get modal(): Locator {
+        return this.page.locator('#Row-new');
+    }
+
+    public get modalDate(): Locator {
+        return this.page.locator('input#Date-New');
+    }
+
+    public get modalAmount(): Locator {
+        return this.page.locator('input#Expense-New');
+    }
+
+    public get modalCurrency(): Locator {
+        return this.page.locator('select#Currency-New');
+    }
+
+    public get modalComment(): Locator {
+        return this.page.locator('input#Comment-New');
+    }
+
+    public get modalCashCheckbox(): Locator {
+        return this.page.locator('input#Cash-New');
+    }
+
+    public get modalSaveBtn(): Locator {
+        return this.page.locator('button#BtnAdd-New');
+    }
+
+    public get modalCancelBtn(): Locator {
+        return this.page.locator('button#BtnCancel-New');
+    }
 }
